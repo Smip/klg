@@ -1,0 +1,72 @@
+<h1>List View</h1>
+
+<div
+  fxLayout="row wrap"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="10px grid"
+>
+  <div fxFlex="50">
+    <klg-search-form (search)="onSearchFormChanged($event)" [value]="searchString"></klg-search-form>
+  </div>
+  <div class="right-align" fxFlex="50">
+    <a color="primary" mat-raised-button routerLink="new">Add New</a>
+  </div>
+</div>
+
+<div
+  fxLayout="row"
+>
+  <table [dataSource]="(schemes$ | async) | paginate: { itemsPerPage: limit, currentPage: page, totalItems: total }"
+         class="mat-elevation-z8" fxFlex mat-table matSort>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Name</th>
+      <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Description</th>
+      <td *matCellDef="let element" mat-cell> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="trigger">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Trigger name</th>
+      <td *matCellDef="let element" mat-cell> {{element.trigger}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="interimtrigger">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Interim trigger name</th>
+      <td *matCellDef="let element" mat-cell> {{element.interimtrigger}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lbmanEffectivedeadlineinfo">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Effective deadline info</th>
+      <td *matCellDef="let element" mat-cell> {{element.lbmanEffectivedeadlineinfo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell> Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-icon-button type="button">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <a [routerLink]="element.id" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button mat-icon-button type="button">
+          <mat-icon>archive</mat-icon>
+        </button>
+        <button (click)="onDeleteScheme(element.id)" mat-icon-button type="button">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+</div>
+<div class="center-align">
+  <pagination-controls (pageChange)="onPageChanged($event)"></pagination-controls>
+</div>

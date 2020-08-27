@@ -1,0 +1,132 @@
+<mat-card>
+  <mat-card-title>
+    Trigger and Costraint Schemes - {{id ? '#' + id : 'New'}}
+  </mat-card-title>
+  <form (ngSubmit)="onSubmit()" *ngIf="schemeForm" [formGroup]="schemeForm" klgFocusInvalidInput>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px ">
+      <mat-form-field appearance="outline">
+        <mat-label>Name *</mat-label>
+        <input
+          formControlName="name"
+          matInput
+          type="text"
+        >
+        <mat-error *ngIf="schemeForm.controls['name'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Trigger name *</mat-label>
+        <mat-select formControlName="trigger">
+          <mat-option *ngFor="let trigger of triggers" [value]="trigger.id">{{trigger.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="schemeForm.controls['trigger'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-card fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px ">
+        <h2>Trigger date known</h2>
+        <mat-radio-group formControlName="triggerdate" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px ">
+          <mat-radio-button
+            *ngFor="let item of triggerdates"
+            [value]="item.id"
+          >
+            {{item.name}}
+          </mat-radio-button>
+          <mat-error
+            *ngIf="schemeForm.controls['triggerdate'].touched && schemeForm.controls['triggerdate'].hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-radio-group>
+      </mat-card>
+
+      <mat-card fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px ">
+        <mat-checkbox formControlName="isinterimtrigger">Is interim trigger?</mat-checkbox>
+
+        <mat-form-field appearance="standard">
+          <mat-label>Interim trigger name</mat-label>
+          <mat-select formControlName="interimtrigger">
+            <mat-option *ngFor="let interimtrigger of interimtriggers"
+                        [value]="interimtrigger.id">{{interimtrigger.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Constraint name *</mat-label>
+        <mat-select formControlName="constraint">
+          <mat-option *ngFor="let constraint of constraints" [value]="constraint.id">{{constraint.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="schemeForm.controls['constraint'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-card>
+        <h2>Constraint date known</h2>
+        <mat-radio-group formControlName="constraintValueKnown" fxLayout="row" fxLayoutAlign="start start"
+                         fxLayoutGap="10px ">
+          <mat-radio-button
+            *ngFor="let item of constraintValueKnown"
+            [value]="item.id"
+          >
+            {{item.name}}
+          </mat-radio-button>
+          <mat-error
+            *ngIf="schemeForm.controls['constraintValueKnown'].touched && schemeForm.controls['constraintValueKnown'].hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-radio-group>
+      </mat-card>
+
+
+      <mat-form-field appearance="standard">
+        <mat-label>Effective deadline info *</mat-label>
+        <mat-select formControlName="lbmanEffectivedeadlineinfo">
+          <mat-option *ngFor="let lbmanEffectivedeadlineinfo of lbmanEffectivedeadlineinfos"
+                      [value]="lbmanEffectivedeadlineinfo.id">
+            {{lbmanEffectivedeadlineinfo.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="schemeForm.controls['lbmanEffectivedeadlineinfo'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Related Processing Basis Reference Type</mat-label>
+        <mat-select formControlName="lbmanProcbasisref">
+          <mat-option *ngFor="let lbmanProcbasisref of lbmanProcbasisrefs" [value]="lbmanProcbasisref.id">
+            {{lbmanProcbasisref.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px ">
+        <mat-checkbox class="example-margin" formControlName="purma">PURMA</mat-checkbox>
+        <mat-checkbox class="example-margin" formControlName="nntm">NNTM</mat-checkbox>
+        <mat-checkbox class="example-margin" formControlName="pdbtm">PDB</mat-checkbox>
+        <mat-checkbox class="example-margin" formControlName="dsart">DSART</mat-checkbox>
+      </mat-card>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+      <section fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px ">
+        <a mat-raised-button routerLink="..">
+          <mat-icon>close</mat-icon>
+          Close
+        </a>
+        <button [disabled]="formSending" mat-raised-button type="submit">
+          <mat-icon>save</mat-icon>
+          Submit
+        </button>
+      </section>
+
+    </div>
+  </form>
+</mat-card>

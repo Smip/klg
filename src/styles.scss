@@ -1,0 +1,30 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+.left-align {
+  text-align: left;
+}
+
+.right-align {
+  text-align: right
+}
+
+.center-align {
+  text-align: center;
+}
+
+
+main {
+  flex: 1 0 auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0 10px 10px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
